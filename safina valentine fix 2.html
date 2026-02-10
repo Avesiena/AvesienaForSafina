@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Kamu ❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #ffe4e6; /* Pink lembut */
+            overflow: hidden; /* Biar love yang terbang ga bikin scroll */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="%23ff69b4"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>'), auto;
+            transition: background-color 0.1s;
+        }
+
+        .font-handwriting {
+            font-family: 'Pacifico', cursive;
+        }
+
+        /* Animasi Jedag Jedug (Flashy & Shaky) */
+        @keyframes jedagJedug {
+            0% { transform: scale(1) rotate(0deg); background-color: #ff0080; }
+            25% { transform: scale(1.1) rotate(2deg); background-color: #ff69b4; }
+            50% { transform: scale(1) rotate(-2deg); background-color: #ffffff; }
+            75% { transform: scale(1.1) rotate(1deg); background-color: #ff1493; }
+            100% { transform: scale(1) rotate(0deg); background-color: #ffe4e6; }
+        }
+
+        .jedag-jedug-active {
+            animation: jedagJedug 2s infinite;
+        }
+
+        /* Animasi Floating Heart Background */
+        .heart-bg {
+            position: absolute;
+            color: #ffb7b2;
+            opacity: 0.3;
+            animation: float 6s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        /* Transisi halus */
+        .page {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            display: none; /* Default hidden */
+        }
+        
+        .page.active {
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .btn-shadow {
+            box-shadow: 0 4px 6px -1px rgba(255, 105, 180, 0.4), 0 2px 4px -1px rgba(255, 105, 180, 0.2);
+            transition: all 0.2s;
+        }
+
+        .btn-shadow:active {
+            transform: scale(0.95);
+        }
+
+        /* Efek confetti sederhana */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            animation: fall linear forwards;
+        }
+        
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(720deg); }
+        }
+
+        /* Cursor Trail Hearts */
+        .cursor-heart {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            font-size: 20px;
+            animation: fadeUp 1s forwards;
+            z-index: 100;
+        }
+
+        @keyframes fadeUp {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            100% { transform: translate(-50%, -150%) scale(0.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="h-screen w-screen flex items-center justify-center relative">
+
+    <!-- Container Utama -->
+    <div id="main-container" class="w-full max-w-md p-6 text-center relative z-10">
+        
+        <!-- Halaman 1: Intro -->
+        <div id="page1" class="page active flex-col items-center gap-6">
+            <h1 class="text-3xl font-handwriting text-pink-600 mb-2">Hai <span id="partner-name">Safina</span>! 👋</h1>
+            <div class="rounded-2xl overflow-hidden border-4 border-white shadow-lg">
+                <img src="https://media.discordapp.net/attachments/994284461736853586/1470671473541910822/ezgif-35f50489d75efb04.gif?ex=698c250b&is=698ad38b&hm=c8fc155593240c2106dc460bf1295babc479a2b0a99cea4612231d05a99101f0&=&width=514&height=930" alt="Cute Bear Hello" class="w-48 h-48 object-cover">
+            </div>
+            <p class="text-lg text-gray-700 font-bold">Aku punya sesuatu nihhhh buat kamuuuu...</p>
+            <button onclick="nextPage(1)" class="btn-shadow bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full text-lg mt-4 animate-bounce">
+                Apa tuh? 🤔
+            </button>
+        </div>
+
+        <!-- Halaman 2: Rayuan -->
+        <div id="page2" class="page flex-col items-center gap-6">
+            <h1 class="text-2xl font-bold text-pink-500">Makasih yaaaaa</h1>
+            <div class="rounded-2xl overflow-hidden border-4 border-white shadow-lg">
+                <img src="https://images-ext-1.discordapp.net/external/aEic1YNscPW_7sAUjITgGUeCBdHBb9SWYEBxntxsH74/https/s3.ezgif.com/tmp/ezgif-3e64ce147fafdd06.gif?width=514&height=930" alt="Flower Bear" class="w-48 h-48 object-cover">
+            </div>
+            <p class="text-gray-600 text-xl">Makasih udah selalu dengerin dan saling cerita ke akuuuuu. I’m really happy and grateful for that! 🥰</p>
+            <button onclick="nextPage(2)" class="btn-shadow bg-red-400 hover:bg-red-500 text-white font-bold py-3 px-8 rounded-full text-lg mt-4">
+                Lanjut 👉
+            </button>
+        </div>
+
+        <!-- Halaman 3: Pertanyaan Utama -->
+        <div id="page3" class="page flex-col items-center gap-4 relative">
+            <h1 class="text-3xl font-handwriting text-pink-600 mb-2">Safina, will you be my valentine? 🌹</h1>
+            <div class="rounded-2xl overflow-hidden border-4 border-white shadow-lg mb-4">
+                <img id="ask-gif" src="https://images-ext-1.discordapp.net/external/B2Vz7O9mhe_RQTnz-ej_8tk8FtthrBLv0MqK5nuQy8Q/https/s3.ezgif.com/tmp/ezgif-3857b2e63bb3c885.gif?width=514&height=930" alt="Please" class="w-48 h-48 object-cover">
+            </div>
+            
+            <div class="flex justify-center items-center gap-4 mt-2 w-full relative h-20">
+                <button id="btn-yes" onclick="acceptLove()" class="btn-shadow bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-xl z-20 transition-all duration-300">
+                    MAUUUUUUUUUUUUUU! 😍
+                </button>
+                
+                <button id="btn-no" onmouseover="moveButton()" onclick="moveButton()" class="btn-shadow bg-gray-300 text-gray-700 font-bold py-3 px-8 rounded-full text-xl z-10 transition-all duration-100 ease-out">
+                    Enggak 😝
+                </button>
+            </div>
+        </div>
+
+        <!-- Halaman 4: Diterima (Efek Jedag Jedug Muncul di Sini) -->
+        <div id="page4" class="page flex-col items-center gap-6">
+            <h1 class="text-4xl font-handwriting text-red-600 mb-2 drop-shadow-md">Happy Valentine's day, Safina! </h1>
+            <div class="rounded-2xl overflow-hidden border-4 border-white shadow-2xl">
+                <img src="https://images-ext-1.discordapp.net/external/0exuejB_zUYWLVGgpnfaHPz8OiC2DaQ-dcY0xS7_vlg/https/s3.ezgif.com/tmp/ezgif-396bb08aff266588.gif?width=514&height=930" alt="Kiss" class="w-48 h-48 object-cover">
+            </div>
+            <p class="text-2xl text-pink-700 font-extrabold mt-4 uppercase tracking-widest">I Love You <span id="partner-name-final">Sayang</span>!</p>
+            <p class="text-md text-gray-800 font-bold">Love, <span id="user-name-final">Avesiena</span> ❤️</p>
+            <button onclick="stopJedagJedug()" class="mt-8 text-pink-600 underline text-sm font-bold">
+                Berhenti Goyang! (Pusing)
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+const btnNo = document.getElementById('btn-no');
+        const btnYes = document.getElementById('btn-yes');
+        const askGif = document.getElementById('ask-gif');
+        let scaleSize = 1;
+
+        const rejectedGifs = [
+            "https://images-ext-1.discordapp.net/external/B2Vz7O9mhe_RQTnz-ej_8tk8FtthrBLv0MqK5nuQy8Q/https/s3.ezgif.com/tmp/ezgif-3857b2e63bb3c885.gif?width=514&height=930"
+        ];
+        // --- LOGIKA NAMA DARI URL ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const partnerName = urlParams.get('p') || 'Safina';
+        const userName = urlParams.get('u') || 'Aku';
+
+        document.getElementById('partner-name').innerText = partnerName;
+        document.getElementById('user-name-1').innerText = userName;
+        document.getElementById('partner-name-final').innerText = partnerName;
+        document.getElementById('user-name-final').innerText = userName;
+
+        // --- LOGIKA CURSOR TRAIL ---
+        document.addEventListener('mousemove', (e) => createCursorHeart(e.clientX, e.clientY));
+        document.addEventListener('touchmove', (e) => createCursorHeart(e.touches[0].clientX, e.touches[0].clientY));
+
+        function createCursorHeart(x, y) {
+            const heart = document.createElement('div');
+            heart.classList.add('cursor-heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = x + 'px';
+            heart.style.top = y + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 1000);
+        }
+
+        // --- LOGIKA FLOATING HEARTS ---
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-bg');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 300);
+
+        // --- NAVIGASI ---
+        function nextPage(currentPageIndex) {
+            document.getElementById(`page${currentPageIndex}`).classList.remove('active');
+            document.getElementById(`page${currentPageIndex + 1}`).classList.add('active');
+        }
+
+        // --- BUTTON INTERACTION ---
+        
+
+        function moveButton() {
+                        scaleSize += 0.2;
+            btnYes.style.transform = `scale(${scaleSize})`;
+            btnNo.style.position = 'fixed'; 
+            btnNo.style.left = `${Math.random() * (window.innerWidth - 100)}px`;
+            btnNo.style.top = `${Math.random() * (window.innerHeight - 50)}px`;
+        }
+
+        // --- JEDAG JEDUG LOGIC ---
+        function acceptLove() {
+            createConfetti();
+            document.body.classList.add('jedag-jedug-active'); // Aktifkan jedag-jedug
+            nextPage(3);
+        }
+
+        function stopJedagJedug() {
+            document.body.classList.remove('jedag-jedug-active');
+        }
+
+        function createConfetti() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = Math.random() * 2 + 1 + 's';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+    </script>
+</body>
+</html>
