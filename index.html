@@ -1,11 +1,10 @@
-<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Untuk Kamu ❤️</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&amp;family=Pacifico&amp;display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Nunito', sans-serif;
@@ -29,7 +28,7 @@
         }
 
         .jedag-jedug-active {
-            animation: jedagJedug 2s infinite;
+            animation: jedagJedug 0.5s infinite; /* Dipercepat untuk efek jedag jedug asli */
         }
 
         /* Animasi Floating Heart Background */
@@ -100,6 +99,12 @@
 </head>
 <body class="h-screen w-screen flex items-center justify-center relative">
 
+    <!-- Audio Elements -->
+    <!-- Ganti URL src dengan link MP3 asli Anda -->
+    <audio id="music-page2" src="https://github.com/Avesiena/AvesienaForSafina/blob/main/Romantic%20%26%20Piano%20(Free%20Music)%20-%20UNTIL%20WE%20MEET%20AGAIN%20by%20Arthur%20Vyncke.mp3" loop></audio>
+    <audio id="music-page3" src="https://github.com/Avesiena/AvesienaForSafina/blob/main/happy%20song.m4a" loop></audio>
+    <audio id="music-page4" src="https://github.com/Avesiena/AvesienaForSafina/blob/main/%23jedagjedug.mp3" loop></audio>
+
     <!-- Container Utama -->
     <div id="main-container" class="w-full max-w-md p-6 text-center relative z-10">
         
@@ -145,7 +150,7 @@
             </div>
         </div>
 
-        <!-- Halaman 4: Diterima (Efek Jedag Jedug Muncul di Sini) -->
+        <!-- Halaman 4: Diterima -->
         <div id="page4" class="page flex-col items-center gap-6">
             <h1 class="text-4xl font-handwriting text-red-600 mb-2 drop-shadow-md">Happy Valentine's day, Safina! </h1>
             <div class="rounded-2xl overflow-hidden border-4 border-white shadow-2xl">
@@ -161,21 +166,37 @@
     </div>
 
     <script>
-const btnNo = document.getElementById('btn-no');
+        const btnNo = document.getElementById('btn-no');
         const btnYes = document.getElementById('btn-yes');
         const askGif = document.getElementById('ask-gif');
         let scaleSize = 1;
 
-        const rejectedGifs = [
-            "https://images-ext-1.discordapp.net/external/B2Vz7O9mhe_RQTnz-ej_8tk8FtthrBLv0MqK5nuQy8Q/https/s3.ezgif.com/tmp/ezgif-3857b2e63bb3c885.gif?width=514&height=930"
-        ];
+        // Music Control Logic
+        const music2 = document.getElementById('music-page2');
+        const music3 = document.getElementById('music-page3');
+        const music4 = document.getElementById('music-page4');
+
+        function stopAllMusic() {
+            [music2, music3, music4].forEach(m => {
+                m.pause();
+                m.currentTime = 0;
+            });
+        }
+
+        function playMusic(id) {
+            stopAllMusic();
+            const music = document.getElementById(id);
+            if (music) {
+                music.play().catch(e => console.log("Music play blocked by browser. Need interaction."));
+            }
+        }
+
         // --- LOGIKA NAMA DARI URL ---
         const urlParams = new URLSearchParams(window.location.search);
         const partnerName = urlParams.get('p') || 'Safina';
-        const userName = urlParams.get('u') || 'Aku';
+        const userName = urlParams.get('u') || 'Avesiena';
 
         document.getElementById('partner-name').innerText = partnerName;
-        document.getElementById('user-name-1').innerText = userName;
         document.getElementById('partner-name-final').innerText = partnerName;
         document.getElementById('user-name-final').innerText = userName;
 
@@ -209,14 +230,17 @@ const btnNo = document.getElementById('btn-no');
         // --- NAVIGASI ---
         function nextPage(currentPageIndex) {
             document.getElementById(`page${currentPageIndex}`).classList.remove('active');
-            document.getElementById(`page${currentPageIndex + 1}`).classList.add('active');
+            const nextIdx = currentPageIndex + 1;
+            document.getElementById(`page${nextIdx}`).classList.add('active');
+            
+            // Ganti musik sesuai halaman
+            if(nextIdx === 2) playMusic('music-page2');
+            if(nextIdx === 3) playMusic('music-page3');
         }
 
         // --- BUTTON INTERACTION ---
-        
-
         function moveButton() {
-                        scaleSize += 0.2;
+            scaleSize += 0.2;
             btnYes.style.transform = `scale(${scaleSize})`;
             btnNo.style.position = 'fixed'; 
             btnNo.style.left = `${Math.random() * (window.innerWidth - 100)}px`;
@@ -226,7 +250,8 @@ const btnNo = document.getElementById('btn-no');
         // --- JEDAG JEDUG LOGIC ---
         function acceptLove() {
             createConfetti();
-            document.body.classList.add('jedag-jedug-active'); // Aktifkan jedag-jedug
+            document.body.classList.add('jedag-jedug-active');
+            playMusic('music-page4'); // Musik khusus jedag jedug
             nextPage(3);
         }
 
@@ -249,10 +274,3 @@ const btnNo = document.getElementById('btn-no');
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
