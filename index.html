@@ -1,24 +1,24 @@
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Untuk Kamu ❤️</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&amp;family=Pacifico&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Nunito', sans-serif;
-            background-color: #ffe4e6; /* Pink lembut */
-            overflow: hidden; /* Biar love yang terbang ga bikin scroll */
+            background-color: #ffe4e6;
+            overflow: hidden;
+            touch-action: manipulation;
             cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="%23ff69b4"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>'), auto;
-            transition: background-color 0.1s;
         }
 
         .font-handwriting {
             font-family: 'Pacifico', cursive;
         }
 
-        /* Animasi Jedag Jedug (Flashy & Shaky) */
         @keyframes jedagJedug {
             0% { transform: scale(1) rotate(0deg); background-color: #ff0080; }
             25% { transform: scale(1.1) rotate(2deg); background-color: #ff69b4; }
@@ -28,94 +28,85 @@
         }
 
         .jedag-jedug-active {
-            animation: jedagJedug 0.5s infinite; /* Dipercepat untuk efek jedag jedug asli */
+            animation: jedagJedug 2s infinite;
         }
 
-        /* Animasi Floating Heart Background */
         .heart-bg {
             position: absolute;
             color: #ffb7b2;
-            opacity: 0.3;
-            animation: float 6s linear infinite;
+            opacity: 0.4;
+            animation: float linear infinite;
             z-index: -1;
+            pointer-events: none;
         }
 
         @keyframes float {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            0% { transform: translateY(110vh) scale(0); opacity: 0; }
             50% { opacity: 0.6; }
             100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
 
-        /* Transisi halus */
         .page {
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-            display: none; /* Default hidden */
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
         }
-        
+
         .page.active {
             display: flex;
             opacity: 1;
-            transform: scale(1);
+            transform: translateY(0);
         }
 
         .btn-shadow {
-            box-shadow: 0 4px 6px -1px rgba(255, 105, 180, 0.4), 0 2px 4px -1px rgba(255, 105, 180, 0.2);
-            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .btn-shadow:active {
-            transform: scale(0.95);
+            transform: scale(0.9);
         }
 
-        /* Efek confetti sederhana */
         .confetti {
-            position: absolute;
+            position: fixed;
             width: 10px;
             height: 10px;
-            background-color: #f00;
-            animation: fall linear forwards;
-        }
-        
-        @keyframes fall {
-            to { transform: translateY(100vh) rotate(720deg); }
+            z-index: 50;
+            pointer-events: none;
         }
 
-        /* Cursor Trail Hearts */
         .cursor-heart {
             position: fixed;
-            top: 0;
-            left: 0;
             pointer-events: none;
             font-size: 20px;
-            animation: fadeUp 1s forwards;
+            animation: fadeUp 0.8s forwards;
             z-index: 100;
         }
 
         @keyframes fadeUp {
             0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-            100% { transform: translate(-50%, -150%) scale(0.5); opacity: 0; }
+            100% { transform: translate(-50%, -200%) scale(0.5); opacity: 0; }
         }
     </style>
 </head>
-<body class="h-screen w-screen flex items-center justify-center relative">
+<body class="h-screen w-screen flex items-center justify-center overflow-hidden">
 
     <!-- Audio Elements -->
-    <!-- Ganti URL src dengan link MP3 asli Anda -->
-    <audio id="music-page2" src="https://github.com/Avesiena/AvesienaForSafina/blob/main/Romantic%20%26%20Piano%20(Free%20Music)%20-%20UNTIL%20WE%20MEET%20AGAIN%20by%20Arthur%20Vyncke.mp3" loop></audio>
-    <audio id="music-page3" src="https://github.com/Avesiena/AvesienaForSafina/blob/main/happy%20song.m4a" loop></audio>
-    <audio id="music-page4" src="https://github.com/Avesiena/AvesienaForSafina/blob/main/%23jedagjedug.mp3" loop></audio>
+    <audio id="music-page2" src="https://raw.githubusercontent.com/Avesiena/AvesienaForSafina/main/Romantic%20%26%20Piano%20(Free%20Music)%20-%20UNTIL%20WE%20MEET%20AGAIN%20by%20Arthur%20Vyncke.mp3" loop pre-load="auto"></audio>
+    <audio id="music-page3" src="https://raw.githubusercontent.com/Avesiena/AvesienaForSafina/main/happy%20song.m4a" loop pre-load="auto"></audio>
+    <audio id="music-page4" src="https://raw.githubusercontent.com/Avesiena/AvesienaForSafina/main/%23jedagjedug.mp3" loop pre-load="auto"></audio>
 
-    <!-- Container Utama -->
-    <div id="main-container" class="w-full max-w-md p-6 text-center relative z-10">
+    <div id="main-container" class="w-full max-w-md p-6 text-center relative z-10 bg-white/30 backdrop-blur-sm rounded-3xl shadow-xl mx-4">
         
         <!-- Halaman 1: Intro -->
         <div id="page1" class="page active flex-col items-center gap-6">
-            <h1 class="text-3xl font-handwriting text-pink-600 mb-2">Hai <span id="partner-name">Safina</span>! 👋</h1>
-            <div class="rounded-2xl overflow-hidden border-4 border-white shadow-lg">
-                <img src="https://github.com/Avesiena/AvesienaForSafina/blob/main/1.gif?raw=true" alt="Cute Bear Hello" class="w-48 h-48 object-cover">
+            <h1 class="text-3xl font-handwriting text-pink-600 mb-2">Hai <span class="partner-name-display">Safina</span>! 👋</h1>
+            <div class="rounded-2xl overflow-hidden border-4 border-white shadow-lg bg-pink-100">
+                <img src="https://github.com/Avesiena/AvesienaForSafina/blob/main/1.gif?raw=true" alt="Cute Bear" class="w-48 h-48 object-cover">
             </div>
-            <p class="text-lg text-gray-700 font-bold">Aku punya sesuatu nihhhh buat kamuuuu...</p>
-            <button onclick="nextPage(1)" class="btn-shadow bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full text-lg mt-4 animate-bounce">
+            <p class="text-lg text-gray-700 font-bold px-4">Aku punya sesuatu nih buat kamu...</p>
+            <button onclick="nextPage(1)" class="btn-shadow bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-10 rounded-full text-lg mt-4 animate-bounce">
                 Apa tuh? 🤔
             </button>
         </div>
@@ -123,28 +114,28 @@
         <!-- Halaman 2: Rayuan -->
         <div id="page2" class="page flex-col items-center gap-6">
             <h1 class="text-2xl font-bold text-pink-500">Makasih yaaaaa</h1>
-            <div class="rounded-2xl overflow-hidden border-4 border-white shadow-lg">
+            <div class="rounded-2xl overflow-hidden border-4 border-white shadow-lg bg-pink-100">
                 <img src="https://github.com/Avesiena/AvesienaForSafina/blob/main/2.gif?raw=true" alt="Flower Bear" class="w-48 h-48 object-cover">
             </div>
-            <p class="text-gray-600 text-xl">Makasih udah selalu dengerin dan saling cerita ke akuuuuu. I’m really happy and grateful for that! 🥰</p>
-            <button onclick="nextPage(2)" class="btn-shadow bg-red-400 hover:bg-red-500 text-white font-bold py-3 px-8 rounded-full text-lg mt-4">
+            <p class="text-gray-600 text-xl px-2">Makasih udah selalu dengerin dan saling cerita ke aku. I’m really happy and grateful for that! 🥰</p>
+            <button onclick="nextPage(2)" class="btn-shadow bg-red-400 hover:bg-red-500 text-white font-bold py-3 px-10 rounded-full text-lg mt-4">
                 Lanjut 👉
             </button>
         </div>
 
         <!-- Halaman 3: Pertanyaan Utama -->
-        <div id="page3" class="page flex-col items-center gap-4 relative">
-            <h1 class="text-3xl font-handwriting text-pink-600 mb-2">Safina, will you be my valentine? 🌹</h1>
-            <div class="rounded-2xl overflow-hidden border-4 border-white shadow-lg mb-4">
+        <div id="page3" class="page flex-col items-center gap-4">
+            <h1 class="text-2xl font-handwriting text-pink-600 mb-2 px-2"><span class="partner-name-display">Safina</span>, will you be my valentine? 🌹</h1>
+            <div class="rounded-2xl overflow-hidden border-4 border-white shadow-lg mb-4 bg-pink-100">
                 <img id="ask-gif" src="https://github.com/Avesiena/AvesienaForSafina/blob/main/3.gif?raw=true" alt="Please" class="w-48 h-48 object-cover">
             </div>
             
-            <div class="md:flex justify-center items-center gap-4 mt-2 w-full relative h-20">
-                <button id="btn-yes" onclick="acceptLove()" class="btn-shadow bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-xl z-20 transition-all duration-300">
-                    MAUUUUUUUUUUUUUU! 😍
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mt-2 w-full min-h-[150px]">
+                <button id="btn-yes" onclick="acceptLove()" class="btn-shadow bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-xl z-20">
+                    MAUUUUU! 😍
                 </button>
                 
-                <button id="btn-no" onmouseover="moveButton()" onclick="moveButton()" class="btn-shadow bg-gray-300 text-gray-700 font-bold py-3 px-8 rounded-full text-xl z-10 transition-all duration-100 ease-out">
+                <button id="btn-no" onmouseover="moveButton()" onclick="moveButton()" class="btn-shadow bg-gray-300 text-gray-700 font-bold py-3 px-8 rounded-full text-xl z-10 transition-all duration-75">
                     Enggak 😝
                 </button>
             </div>
@@ -152,106 +143,86 @@
 
         <!-- Halaman 4: Diterima -->
         <div id="page4" class="page flex-col items-center gap-6">
-            <h1 class="text-4xl font-handwriting text-red-600 mb-2 drop-shadow-md">Happy Valentine's day, Safina! </h1>
-            <div class="rounded-2xl overflow-hidden border-4 border-white shadow-2xl">
+            <h1 class="text-3xl font-handwriting text-red-600 mb-2 drop-shadow-md">Happy Valentine's Day, <span class="partner-name-display">Safina</span>!</h1>
+            <div class="rounded-2xl overflow-hidden border-4 border-white shadow-2xl bg-pink-100">
                 <img src="https://github.com/Avesiena/AvesienaForSafina/blob/main/4.gif?raw=true" alt="Kiss" class="w-48 h-48 object-cover">
             </div>
-            <p class="text-2xl text-pink-700 font-extrabold mt-4 uppercase tracking-widest">I Love You <span id="partner-name-final">Sayang</span>!</p>
-            <p class="text-md text-gray-800 font-bold">Love, <span id="user-name-final">Avesiena</span> ❤️</p>
-            <button onclick="stopJedagJedug()" class="mt-8 text-pink-600 underline text-sm font-bold">
+            <div class="mt-4">
+                <p class="text-2xl text-pink-700 font-extrabold uppercase tracking-widest">I Love You So Much!</p>
+                <p class="text-md text-gray-800 font-bold mt-2">Love, <span id="user-name-final">Avesiena</span> ❤️</p>
+            </div>
+            <button onclick="stopJedagJedug()" class="mt-4 text-pink-600 underline text-sm font-bold opacity-70 hover:opacity-100">
                 Berhenti Goyang! (Pusing)
             </button>
         </div>
-
     </div>
 
     <script>
         const btnNo = document.getElementById('btn-no');
         const btnYes = document.getElementById('btn-yes');
-        const askGif = document.getElementById('ask-gif');
         let scaleSize = 1;
 
-        // Music Control Logic
-        const music2 = document.getElementById('music-page2');
-        const music3 = document.getElementById('music-page3');
-        const music4 = document.getElementById('music-page4');
-
-        function stopAllMusic() {
-            [music2, music3, music4].forEach(m => {
-                m.pause();
-                m.currentTime = 0;
-            });
-        }
-
-        function playMusic(id) {
-            stopAllMusic();
-            const music = document.getElementById(id);
-            if (music) {
-                music.play().catch(e => console.log("Music play blocked by browser. Need interaction."));
-            }
-        }
-
-        // --- LOGIKA NAMA DARI URL ---
+        // URL Parameters
         const urlParams = new URLSearchParams(window.location.search);
         const partnerName = urlParams.get('p') || 'Safina';
         const userName = urlParams.get('u') || 'Avesiena';
 
-        document.getElementById('partner-name').innerText = partnerName;
-        document.getElementById('partner-name-final').innerText = partnerName;
+        document.querySelectorAll('.partner-name-display').forEach(el => el.innerText = partnerName);
         document.getElementById('user-name-final').innerText = userName;
 
-        // --- LOGIKA CURSOR TRAIL ---
-        document.addEventListener('mousemove', (e) => createCursorHeart(e.clientX, e.clientY));
-        document.addEventListener('touchmove', (e) => createCursorHeart(e.touches[0].clientX, e.touches[0].clientY));
+        // Music Control
+        const musics = {
+            p2: document.getElementById('music-page2'),
+            p3: document.getElementById('music-page3'),
+            p4: document.getElementById('music-page4')
+        };
 
-        function createCursorHeart(x, y) {
-            const heart = document.createElement('div');
-            heart.classList.add('cursor-heart');
-            heart.innerHTML = '❤️';
-            heart.style.left = x + 'px';
-            heart.style.top = y + 'px';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 1000);
+        function playMusic(key) {
+            // Stop all
+            Object.values(musics).forEach(m => {
+                m.pause();
+                m.currentTime = 0;
+            });
+            // Play target
+            if (musics[key]) {
+                musics[key].play().catch(e => console.log("Interaksi dibutuhkan untuk musik."));
+            }
         }
 
-        // --- LOGIKA FLOATING HEARTS ---
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart-bg');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 5000);
-        }
-        setInterval(createHeart, 300);
-
-        // --- NAVIGASI ---
-        function nextPage(currentPageIndex) {
-            document.getElementById(`page${currentPageIndex}`).classList.remove('active');
-            const nextIdx = currentPageIndex + 1;
-            document.getElementById(`page${nextIdx}`).classList.add('active');
+        // Navigation
+        function nextPage(currentIdx) {
+            document.getElementById(`page${currentIdx}`).classList.remove('active');
+            const nextIdx = currentIdx + 1;
+            const nextElem = document.getElementById(`page${nextIdx}`);
             
-            // Ganti musik sesuai halaman
-            if(nextIdx === 2) playMusic('music-page2');
-            if(nextIdx === 3) playMusic('music-page3');
+            if (nextElem) {
+                setTimeout(() => {
+                    nextElem.classList.add('active');
+                    if (nextIdx === 2) playMusic('p2');
+                    if (nextIdx === 3) playMusic('p3');
+                }, 100);
+            }
         }
 
-        // --- BUTTON INTERACTION ---
+        // Interaction Logic
         function moveButton() {
-            scaleSize += 0.2;
+            // Make "Yes" bigger
+            scaleSize += 0.3;
             btnYes.style.transform = `scale(${scaleSize})`;
-            btnNo.style.position = 'fixed'; 
-            btnNo.style.left = `${Math.random() * (window.innerWidth - 100)}px`;
-            btnNo.style.top = `${Math.random() * (window.innerHeight - 50)}px`;
+            
+            // Move "No" randomly
+            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight);
+            
+            btnNo.style.position = 'fixed';
+            btnNo.style.left = `${x}px`;
+            btnNo.style.top = `${y}px`;
         }
 
-        // --- JEDAG JEDUG LOGIC ---
         function acceptLove() {
             createConfetti();
             document.body.classList.add('jedag-jedug-active');
-            playMusic('music-page4'); // Musik khusus jedag jedug
+            playMusic('p4');
             nextPage(3);
         }
 
@@ -259,16 +230,53 @@
             document.body.classList.remove('jedag-jedug-active');
         }
 
+        // Visual Effects
+        function createCursorHeart(x, y) {
+            const heart = document.createElement('div');
+            heart.classList.add('cursor-heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = x + 'px';
+            heart.style.top = y + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 800);
+        }
+
+        document.addEventListener('mousemove', (e) => createCursorHeart(e.clientX, e.clientY));
+        document.addEventListener('touchstart', (e) => createCursorHeart(e.touches[0].clientX, e.touches[0].clientY));
+
+        function createBackgroundHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-bg');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        setInterval(createBackgroundHeart, 400);
+
         function createConfetti() {
-            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
+            const colors = ['#ff0000', '#ff69b4', '#ffffff', '#ffff00', '#ff1493'];
             for (let i = 0; i < 100; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.animationDuration = Math.random() * 2 + 1 + 's';
-                document.body.appendChild(confetti);
-                setTimeout(() => confetti.remove(), 3000);
+                const conf = document.createElement('div');
+                conf.classList.add('confetti');
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.top = '-10px';
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.borderRadius = '2px';
+                
+                const duration = Math.random() * 3 + 2;
+                conf.animate([
+                    { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                    { transform: `translateY(100vh) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: duration * 1000,
+                    easing: 'linear'
+                });
+                
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), duration * 1000);
             }
         }
     </script>
